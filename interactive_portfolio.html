@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ragul GR | Lead Business Analyst & ERP Functional Consultant</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Syne"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              500: '#f43f5e',
+              600: '#e11d48',
+              700: '#be123c',
+              800: '#9f1239',
+              900: '#881337',
+              accent: '#ff1744'
+            },
+            surface: {
+              base: '#06070a',
+              card: '#0d0f17',
+              elevated: '#151824',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          boxShadow: {
+            'crimson-glow': '0 0 50px -10px rgba(225, 29, 72, 0.45)',
+            'crimson-intense': '0 0 90px -15px rgba(225, 29, 72, 0.65)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .perspective-stage {
+      perspective: 1200px;
+      perspective-origin: 50% 45%;
+    }
+    .preserve-3d {
+      transform-style: preserve-3d;
+    }
+    .glass-card {
+      background: linear-gradient(135deg, rgba(21, 24, 36, 0.78) 0%, rgba(10, 11, 16, 0.92) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-crimson {
+      background: radial-gradient(circle at 50% 20%, rgba(190, 18, 60, 0.28) 0%, rgba(11, 12, 18, 0.94) 80%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(244, 63, 94, 0.28);
+    }
+    .hero-crimson-orb {
+      background: radial-gradient(circle, rgba(225, 29, 72, 0.35) 0%, rgba(159, 18, 57, 0.16) 50%, rgba(0,0,0,0) 75%);
+      filter: blur(55px);
+    }
+    .text-glow {
+      text-shadow: 0 0 25px rgba(244, 63, 94, 0.5);
+    }
+    #characterCanvas {
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.75));
+    }
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #06070a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #252838;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #e11d48;
+    }
+  </style>
+</head>
+<body class="bg-surface-base text-slate-100 font-sans selection:bg-brand-600 selection:text-white overflow-x-hidden antialiased">
+
+  <!-- Toast Notification System -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-surface-elevated/95 border border-brand-500/40 shadow-2xl backdrop-blur-md">
+    <div class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-ping"></div>
+    <span id="toast-message" class="text-xs font-mono text-slate-200">Action logged</span>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto flex items-center justify-between glass-card px-5 py-3 rounded-2xl border border-white/10 shadow-2xl">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 via-rose-600 to-red-500 flex items-center justify-center text-white font-display font-bold text-lg shadow-crimson-glow group-hover:scale-105 transition-transform">
+          R
+        </div>
+        <div>
+          <span class="font-display font-bold text-lg tracking-tight block leading-none">RAGUL GR</span>
+          <span class="text-[11px] font-mono text-brand-500 tracking-wider font-semibold uppercase">ERP Consultant & Business Analyst</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-mono uppercase tracking-wider text-slate-300">
+        <a href="#about" class="hover:text-brand-400 transition-colors">Profile</a>
+        <a href="#metrics" class="hover:text-brand-400 transition-colors">Impact</a>
+        <a href="#projects" class="hover:text-brand-400 transition-colors">Enterprise Projects</a>
+        <a href="#skills" class="hover:text-brand-400 transition-colors">Competencies</a>
+        <a href="#education" class="hover:text-brand-400 transition-colors">Credentials</a>
+      </nav>
+
+      <!-- Action buttons -->
+      <div class="flex items-center gap-3">
+        <button onclick="copyContactEmail()" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 transition-all">
+          <i data-lucide="copy" class="w-3.5 h-3.5 text-brand-400"></i>
+          <span>Copy Email</span>
+        </button>
+        <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-brand-600 to-rose-600 hover:from-brand-500 hover:to-rose-500 text-white shadow-crimson-glow transition-all hover:scale-105">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          <span>Connect</span>
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-300 hover:text-white rounded-lg focus:outline-none" aria-label="Toggle Navigation">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden max-w-7xl mx-auto mt-2 glass-card rounded-2xl p-4 flex-col gap-3 text-sm">
+      <a href="#about" class="py-2 px-3 hover:bg-white/5 rounded-lg text-slate-200">Profile & Bio</a>
+      <a href="#metrics" class="py-2 px-3 hover:bg-white/5 rounded-lg text-slate-200">Key Impact Stats</a>
+      <a href="#projects" class="py-2 px-3 hover:bg-white/5 rounded-lg text-slate-200">Enterprise Projects</a>
+      <a href="#skills" class="py-2 px-3 hover:bg-white/5 rounded-lg text-slate-200">Skills Matrix</a>
+      <a href="#education" class="py-2 px-3 hover:bg-white/5 rounded-lg text-slate-200">Education & MBA</a>
+      <a href="#contact" class="py-2 px-3 hover:bg-white/5 rounded-lg text-slate-200">Contact Ragul</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Disney-Style Interactive Character Tracking -->
+  <section class="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden" id="hero">
+    <!-- Crimson Studio Lighting Atmosphere -->
+    <div class="absolute top-1/4 -left-40 w-96 h-96 hero-crimson-orb rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-10 -right-40 w-[520px] h-[520px] hero-crimson-orb rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      
+      <!-- Left Hero Content -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-950/80 border border-brand-500/40 text-brand-300 text-xs font-mono font-medium tracking-wide shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+          <span>ENTERPRISE ERP CONSULTANT • 4+ YRS EXPERIENCE</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold tracking-tight leading-[1.1]">
+          Orchestrating Complex Enterprise ERPs & <span class="bg-gradient-to-r from-rose-400 via-brand-500 to-red-400 bg-clip-text text-transparent text-glow">Digital Transformation</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl font-normal leading-relaxed mx-auto lg:mx-0">
+          I am <strong class="text-white font-semibold">Ragul GR</strong>, an ERP Functional Consultant and Lead Business Analyst. I specialize in large-scale rollouts (120+ operational plants), custom Logistics Management modules, SQL data validations, API integrations, and BRD/FRD blueprinting for manufacturing leaders like Prism RMC and Prism Cements.
+        </p>
+
+        <!-- Skill Pills -->
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 pt-1">
+          <span class="px-3 py-1 rounded-lg bg-surface-elevated/80 border border-white/5 text-xs text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-brand-500"></i> Ramco ERP Lead
+          </span>
+          <span class="px-3 py-1 rounded-lg bg-surface-elevated/80 border border-white/5 text-xs text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-brand-500"></i> 120+ Plant Rollouts
+          </span>
+          <span class="px-3 py-1 rounded-lg bg-surface-elevated/80 border border-white/5 text-xs text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-brand-500"></i> 450+ Enhancements
+          </span>
+          <span class="px-3 py-1 rounded-lg bg-surface-elevated/80 border border-white/5 text-xs text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-brand-500"></i> MBA (Supply Chain)
+          </span>
+        </div>
+
+        <!-- Action CTAs -->
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+          <a href="#projects" class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-brand-600 via-rose-600 to-red-600 text-white shadow-crimson-glow hover:shadow-crimson-intense transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2">
+            <span>Explore Enterprise Case Studies</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          
+          <button onclick="triggerResumeModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-sm bg-surface-card hover:bg-surface-elevated border border-white/10 text-slate-200 transition-all flex items-center justify-center gap-2">
+            <i data-lucide="file-text" class="w-4 h-4 text-brand-400"></i>
+            <span>Resume Dossier</span>
+          </button>
+        </div>
+
+        <!-- Contact Micro-bar -->
+        <div class="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-5 text-xs text-slate-400 font-mono">
+          <a href="mailto:ragulgr02@gmail.com" class="hover:text-brand-400 transition-colors flex items-center gap-1.5">
+            <i data-lucide="mail" class="w-3.5 h-3.5 text-brand-500"></i> ragulgr02@gmail.com
+          </a>
+          <a href="tel:+918610797705" class="hover:text-brand-400 transition-colors flex items-center gap-1.5">
+            <i data-lucide="phone" class="w-3.5 h-3.5 text-brand-500"></i> +91 8610797705
+          </a>
+          <span class="flex items-center gap-1.5 text-slate-400">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-500"></i> Chennai, TN
+          </span>
+        </div>
+      </div>
+
+      <!-- Right Character Stage: Disney-Style Animated Character with Real Eye & Head Tracking -->
+      <div class="lg:col-span-5 flex flex-col items-center justify-center">
+        
+        <div class="perspective-stage relative w-full max-w-[430px] mx-auto select-none" id="tracking-stage">
+          
+          <!-- Tracker Live Status HUD -->
+          <div class="flex items-center justify-between mb-3 px-3.5 py-2 rounded-xl glass-card text-xs font-mono border border-white/10 shadow-lg">
+            <div class="flex items-center gap-2">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
+              </span>
+              <span id="tracker-mode-text" class="text-slate-200 font-semibold tracking-wide">Disney Eye Rig: ACTIVE</span>
+            </div>
+            <span id="hud-angle" class="text-brand-400 text-[11px] font-bold">Yaw: 0.0° | Gaze: 0.0°</span>
+          </div>
+
+          <!-- 3D Portrait Stage Card -->
+          <div id="portraitCard" class="preserve-3d relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-2 border-brand-500/40 p-2.5 transition-transform duration-75 ease-out glass-card-crimson">
+            
+            <!-- Dynamic Glare Light -->
+            <div id="glareOverlay" class="absolute inset-0 pointer-events-none rounded-3xl z-30 opacity-0 mix-blend-overlay transition-opacity duration-200"></div>
+
+            <!-- Portrait Interior with Rich Crimson Gradient matching the Disney Artwork -->
+            <div class="relative w-full h-full rounded-[20px] overflow-hidden bg-gradient-to-b from-[#e11d48] via-[#a31238] to-[#140206] flex items-end justify-center">
+              
+              <!-- Soft Disney Key Spotlight -->
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.3)_0%,rgba(225,29,72,0.32)_45%,rgba(16,2,6,0.92)_100%)] pointer-events-none"></div>
+
+              <!-- High-Fidelity Disney Character Animated Canvas -->
+              <canvas id="characterCanvas" width="500" height="625" class="w-full h-full object-contain relative z-10 cursor-pointer" title="Click avatar for Disney character dialogue and reaction!"></canvas>
+
+              <!-- Disney Reaction Speech Bubble -->
+              <div id="characterBubble" class="absolute top-5 left-1/2 -translate-x-1/2 z-40 px-4 py-2.5 rounded-2xl bg-black/90 backdrop-blur-md border border-brand-400 text-xs font-sans font-medium text-rose-100 shadow-2xl opacity-0 transform -translate-y-3 transition-all duration-300 pointer-events-none whitespace-nowrap flex items-center gap-2">
+                <span class="text-base" id="bubbleEmoji">✨</span>
+                <span id="bubbleText">"Welcome! Let's explore enterprise ERP."</span>
+              </div>
+
+              <!-- Interactive Badge -->
+              <div class="absolute bottom-2.5 inset-x-3 z-20 flex items-center justify-between text-[10px] font-mono text-slate-300/90 bg-black/55 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10">
+                <span class="flex items-center gap-1">✦ <strong class="text-white">Move cursor</strong> to guide eyes</span>
+                <span class="text-brand-300 font-semibold">Pixar Eye Tracking</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Disney Expressive Presets Toolbar -->
+          <div class="mt-3 p-2 rounded-2xl glass-card border border-white/10 flex items-center justify-between gap-1 text-xs">
+            <button onclick="triggerExpression('smile')" class="flex-1 py-1.5 px-2 rounded-lg bg-white/5 hover:bg-brand-600/40 text-slate-200 transition-all text-[11px] font-mono flex items-center justify-center gap-1" title="Disney Smirk & Charm">
+              <span>😏</span> Smirk
+            </button>
+            <button onclick="triggerExpression('wonder')" class="flex-1 py-1.5 px-2 rounded-lg bg-white/5 hover:bg-brand-600/40 text-slate-200 transition-all text-[11px] font-mono flex items-center justify-center gap-1" title="Contemplative Upward Gaze">
+              <span>✨</span> Look Up
+            </button>
+            <button onclick="triggerExpression('wink')" class="flex-1 py-1.5 px-2 rounded-lg bg-white/5 hover:bg-brand-600/40 text-slate-200 transition-all text-[11px] font-mono flex items-center justify-center gap-1" title="Expressive Disney Wink">
+              <span>😉</span> Wink
+            </button>
+            <button onclick="triggerExpression('inspired')" class="flex-1 py-1.5 px-2 rounded-lg bg-white/5 hover:bg-brand-600/40 text-slate-200 transition-all text-[11px] font-mono flex items-center justify-center gap-1" title="Inspired Idea">
+              <span>💡</span> Idea
+            </button>
+            <button onclick="triggerExpression('surprised')" class="flex-1 py-1.5 px-2 rounded-lg bg-white/5 hover:bg-brand-600/40 text-slate-200 transition-all text-[11px] font-mono flex items-center justify-center gap-1" title="Playful Surprise">
+              <span>😲</span> Wow
+            </button>
+          </div>
+
+          <!-- Engine Control Bar -->
+          <div class="mt-2 p-2 rounded-2xl glass-card border border-white/10 flex items-center justify-between gap-1.5 text-xs font-mono">
+            <button onclick="setCharacterMode('cursor')" id="btn-mode-cursor" class="flex-1 py-2 px-2.5 rounded-xl bg-brand-600 text-white font-semibold transition-all flex items-center justify-center gap-1.5 text-[11px]">
+              <i data-lucide="mouse-pointer" class="w-3.5 h-3.5"></i>
+              <span>Follow Cursor</span>
+            </button>
+            <button onclick="setCharacterMode('patrol')" id="btn-mode-patrol" class="flex-1 py-2 px-2.5 rounded-xl bg-surface-base hover:bg-white/5 text-slate-300 transition-all flex items-center justify-center gap-1.5 text-[11px]">
+              <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+              <span>Auto Patrol</span>
+            </button>
+            <button onclick="triggerDisneyBlink()" class="py-2 px-3 rounded-xl bg-surface-base hover:bg-white/5 text-slate-300 border border-white/5 transition-all text-[11px] flex items-center gap-1.5" title="Trigger Disney Double Blink">
+              <i data-lucide="eye" class="w-3.5 h-3.5 text-brand-400"></i>
+              <span>Blink</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Key Impact Metrics Bar -->
+  <section class="py-12 border-y border-surface-border bg-surface-card/60 relative z-10" id="metrics">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        
+        <div class="p-6 rounded-2xl glass-card border border-white/5 hover:border-brand-500/40 transition-all group">
+          <div class="text-3xl sm:text-4xl font-display font-extrabold text-white group-hover:text-brand-400 transition-colors">
+            120<span class="text-brand-500">+</span>
+          </div>
+          <div class="text-sm font-semibold text-slate-200 mt-1">Operational Plants Deployed</div>
+          <p class="text-xs text-slate-400 mt-1.5 font-mono">Prism RMC & IDS enterprise integration</p>
+        </div>
+
+        <div class="p-6 rounded-2xl glass-card border border-white/5 hover:border-brand-500/40 transition-all group">
+          <div class="text-3xl sm:text-4xl font-display font-extrabold text-white group-hover:text-brand-400 transition-colors">
+            450<span class="text-brand-500">+</span>
+          </div>
+          <div class="text-sm font-semibold text-slate-200 mt-1">Enhancements Delivered</div>
+          <p class="text-xs text-slate-400 mt-1.5 font-mono">Sales, Pricing, Logistics & Inventory</p>
+        </div>
+
+        <div class="p-6 rounded-2xl glass-card border border-white/5 hover:border-brand-500/40 transition-all group">
+          <div class="text-3xl sm:text-4xl font-display font-extrabold text-white group-hover:text-brand-400 transition-colors">
+            4<span class="text-brand-500">+</span> Yrs
+          </div>
+          <div class="text-sm font-semibold text-slate-200 mt-1">Enterprise ERP Experience</div>
+          <p class="text-xs text-slate-400 mt-1.5 font-mono">Heavy Manufacturing & Cement Sector</p>
+        </div>
+
+        <div class="p-6 rounded-2xl glass-card border border-white/5 hover:border-brand-500/40 transition-all group">
+          <div class="text-3xl sm:text-4xl font-display font-extrabold text-white group-hover:text-brand-400 transition-colors">
+            100<span class="text-brand-500">%</span>
+          </div>
+          <div class="text-sm font-semibold text-slate-200 mt-1">Go-Live & Hyper-Care Success</div>
+          <p class="text-xs text-slate-400 mt-1.5 font-mono">Zero critical failure stabilization</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Profile & Core Pillars -->
+  <section class="py-24 relative" id="about">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-brand-500 font-mono text-xs uppercase tracking-widest font-bold">Executive Summary</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold mt-2">End-to-End Enterprise ERP Functional Delivery</h2>
+        <div class="w-16 h-1 bg-brand-600 mx-auto mt-4 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <div class="p-8 rounded-3xl glass-card border border-white/5 flex flex-col justify-between hover:-translate-y-1 transition-all">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-brand-500/10 border border-brand-500/30 text-brand-400 flex items-center justify-center">
+              <i data-lucide="layers" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold font-display text-white">Full Lifecycle Ownership</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Leading projects from business requirement gathering, stakeholder workshops, BRD/FRD blueprinting, process mapping, and user acceptance testing (UAT) to smooth production cutover.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-white/10 mt-6 font-mono text-xs text-brand-400 flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i> Requirement Gathering to Go-Live
+          </div>
+        </div>
+
+        <div class="p-8 rounded-3xl glass-card border border-white/5 flex flex-col justify-between hover:-translate-y-1 transition-all">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center">
+              <i data-lucide="database" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold font-display text-white">Technical Verification & SQL</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Bridging functional business logic with rigorous technical depth: writing MS SQL scripts for data integrity validation, validating REST API payload contracts, and resolving high-impact anomalies.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-white/10 mt-6 font-mono text-xs text-rose-400 flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i> MS SQL & API Integration Testing
+          </div>
+        </div>
+
+        <div class="p-8 rounded-3xl glass-card border border-white/5 flex flex-col justify-between hover:-translate-y-1 transition-all">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 flex items-center justify-center">
+              <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold font-display text-white">Scale & User Adoption</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Orchestrated deployments across 120+ active manufacturing plants. Authored intuitive standard functional manuals, led plant manager training, and eliminated operational resistance.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-white/10 mt-6 font-mono text-xs text-red-400 flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i> 120+ Plants Change Management
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Detailed Enterprise Projects Breakdown -->
+  <section class="py-24 bg-surface-card/40 border-t border-surface-border relative" id="projects">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+        <div>
+          <span class="text-brand-500 font-mono text-xs uppercase tracking-widest font-bold">Client Implementations</span>
+          <h2 class="text-3xl sm:text-4xl font-display font-bold mt-2">Enterprise Case Studies</h2>
+        </div>
+        <p class="text-slate-400 text-sm max-w-md font-mono">
+          Proven impact across Ramco ERP modules, custom logistics engineering, and field sales mobility.
+        </p>
+      </div>
+
+      <div class="space-y-8">
+
+        <!-- Project 1: Prism RMC -->
+        <div class="p-8 sm:p-10 rounded-3xl glass-card border border-brand-500/30 relative overflow-hidden group">
+          <div class="absolute -right-20 -top-20 w-80 h-80 bg-brand-600/15 rounded-full blur-3xl pointer-events-none group-hover:bg-brand-600/25 transition-all"></div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
+            <div class="lg:col-span-8 space-y-4">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-mono font-semibold">Flagship Implementation</span>
+                <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300 text-xs font-mono">120+ Operational Plants</span>
+              </div>
+              
+              <h3 class="text-2xl sm:text-3xl font-display font-bold text-white">Prism RMC – Enterprise ERP & Custom Logistics Management</h3>
+              <p class="text-sm font-mono text-brand-400 font-medium">Role: Lead Business Analyst / ERP Functional Consultant</p>
+              
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Single-handedly designed and implemented a bespoke <strong class="text-white">Logistics Management Module</strong> for Ready Mix Concrete (RMC) operations. Led the project from business requirement gathering, workflow blueprinting, and UAT to nationwide production deployment across 120+ operational units and IDS integrations.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <div class="flex items-start gap-2 text-xs text-slate-300">
+                  <i data-lucide="check-circle2" class="w-4 h-4 text-brand-400 shrink-0 mt-0.5"></i>
+                  <span>Unified Sales, Delivery Dispatch, and Batching Plant Inventory streams.</span>
+                </div>
+                <div class="flex items-start gap-2 text-xs text-slate-300">
+                  <i data-lucide="check-circle2" class="w-4 h-4 text-brand-400 shrink-0 mt-0.5"></i>
+                  <span>Executed enterprise integration for Prism RMC with IDS platform.</span>
+                </div>
+                <div class="flex items-start gap-2 text-xs text-slate-300">
+                  <i data-lucide="check-circle2" class="w-4 h-4 text-brand-400 shrink-0 mt-0.5"></i>
+                  <span>Performed SQL data validation scripts to certify data accuracy post-migration.</span>
+                </div>
+                <div class="flex items-start gap-2 text-xs text-slate-300">
+                  <i data-lucide="check-circle2" class="w-4 h-4 text-brand-400 shrink-0 mt-0.5"></i>
+                  <span>Functioned as primary Functional SPOC during hyper-care and stabilization.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-4 bg-surface-base/90 p-6 rounded-2xl border border-white/5 space-y-4">
+              <h4 class="text-xs uppercase font-mono tracking-wider text-slate-400">Project Highlights</h4>
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-xs font-semibold mb-1">
+                    <span>Rollout Plant Scale</span>
+                    <span class="text-brand-400">120+ Plants (100%)</span>
+                  </div>
+                  <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div class="bg-brand-500 h-full rounded-full w-full"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs font-semibold mb-1">
+                    <span>Dispatch Turnaround Optimization</span>
+                    <span class="text-emerald-400">30% Faster</span>
+                  </div>
+                  <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div class="bg-emerald-500 h-full rounded-full w-4/5"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-3 border-t border-white/10">
+                <span class="text-[11px] font-mono text-slate-400 block mb-1.5">Stack & Modules</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2 py-0.5 text-[10px] rounded bg-white/5 text-slate-300">Ramco ERP</span>
+                  <span class="px-2 py-0.5 text-[10px] rounded bg-white/5 text-slate-300">Logistics Module</span>
+                  <span class="px-2 py-0.5 text-[10px] rounded bg-white/5 text-slate-300">MS SQL Server</span>
+                  <span class="px-2 py-0.5 text-[10px] rounded bg-white/5 text-slate-300">IDS Sync</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Prism Cements -->
+        <div class="p-8 sm:p-10 rounded-3xl glass-card border border-white/5 relative overflow-hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-8 space-y-4">
+              <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-mono font-semibold">Manufacturing ERP</span>
+              <h3 class="text-2xl sm:text-3xl font-display font-bold text-white">Prism Cements – Multi-Module Functional Consulting</h3>
+              <p class="text-sm font-mono text-rose-400 font-medium">Role: Business Analyst</p>
+              
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Consulted across critical manufacturing and commercial modules: Sales Order processing, Purchase requisitioning, Dynamic Pricing formulas, Inventory valuation, Dispatch automation, and Financial reconciliations. Supported multiple cement plants through implementation and hypercare.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <div class="flex items-start gap-2 text-xs text-slate-300">
+                  <i data-lucide="check-circle2" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+                  <span>Executed SQL query validations for invoice reconciliations and inventory ledgers.</span>
+                </div>
+                <div class="flex items-start gap-2 text-xs text-slate-300">
+                  <i data-lucide="check-circle2" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+                  <span>Led business scenario UAT coordination with cement plant commercial controllers.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-4 bg-surface-base/90 p-6 rounded-2xl border border-white/5 space-y-3">
+              <h4 class="text-xs uppercase font-mono tracking-wider text-slate-400">Core Modules Covered</h4>
+              <ul class="text-xs space-y-2 text-slate-300">
+                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-rose-400"></i> Sales & Dealer Billing Engines</li>
+                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-rose-400"></i> Purchase & Procurement Workflows</li>
+                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-rose-400"></i> Weighbridge Dispatch & Freight Sync</li>
+                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-rose-400"></i> Finance, Ledger & Tax Validation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 & 4 Grid: TMPL & Cygni + Eagle Cements -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <!-- Eagle Cements Mobile Application -->
+          <div class="p-8 rounded-3xl glass-card border border-white/5 space-y-4">
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-semibold">Field Mobility App</span>
+            <h3 class="text-xl sm:text-2xl font-display font-bold text-white">Eagle Cements – Mobile Application Implementation</h3>
+            <p class="text-xs font-mono text-emerald-400">Role: Business Analyst / Functional Consultant</p>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Spearheaded functional rollout for "Eagle", an exclusive enterprise mobile application built to digitize field sales officers, dealer ordering, dispatch notifications, and on-ground validation.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-300 pt-2">
+              <li class="flex items-start gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                <span>Led functional workflow analysis connecting mobile transactions to backend Ramco ERP.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                <span>Managed bug triaging, UAT signoffs, and production release stabilization.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- TMPL & Cygni Continuous Enhancements -->
+          <div class="p-8 rounded-3xl glass-card border border-white/5 space-y-4">
+            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-mono font-semibold">Continuous Optimization</span>
+            <h3 class="text-xl sm:text-2xl font-display font-bold text-white">TMPL & Cygni – 450+ Enhancements & Releases</h3>
+            <p class="text-xs font-mono text-purple-400">Role: ERP Functional Consultant</p>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Delivered 450+ enhancement and production support requests across Sales, Inventory, Pricing, Finance, and Customer Management modules for industrial and energy clients.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-300 pt-2">
+              <li class="flex items-start gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-purple-400 shrink-0 mt-0.5"></i>
+                <span>Authored functional release documentation, SOPs, and user adoption guides.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-purple-400 shrink-0 mt-0.5"></i>
+                <span>Continuous sprint coordination with development, QA, and business stakeholders.</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Competencies & Skill Matrix -->
+  <section class="py-24 relative" id="skills">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-brand-500 font-mono text-xs uppercase tracking-widest font-bold">Skills Matrix</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold mt-2">Functional & Technical Competencies</h2>
+        <div class="w-16 h-1 bg-brand-600 mx-auto mt-4 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="p-6 rounded-2xl glass-card border border-white/5 space-y-4">
+          <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold">
+            <i data-lucide="cpu" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white">ERP & Modules</h3>
+          <ul class="space-y-2 text-xs text-slate-300 font-medium">
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5 flex items-center justify-between">
+              <span>Ramco ERP Suite</span>
+              <span class="text-brand-400 font-mono">Expert</span>
+            </li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5 flex items-center justify-between">
+              <span>Logistics Management</span>
+              <span class="text-brand-400 font-mono">Lead Spec</span>
+            </li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5 flex items-center justify-between">
+              <span>Inventory & Warehousing</span>
+              <span class="text-brand-400 font-mono">Advanced</span>
+            </li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5 flex items-center justify-between">
+              <span>Sales & Pricing Engines</span>
+              <span class="text-brand-400 font-mono">Advanced</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl glass-card border border-white/5 space-y-4">
+          <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold">
+            <i data-lucide="file-check-2" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white">Business Analysis</h3>
+          <ul class="space-y-2 text-xs text-slate-300 font-medium">
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5">BRD & FRD Authoring</li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5">Process Mapping & Gap Analysis</li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5">User Acceptance Testing (UAT)</li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5">Regression & Scenario Testing</li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl glass-card border border-white/5 space-y-4">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">
+            <i data-lucide="code-2" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white">Technical & Data</h3>
+          <ul class="space-y-2 text-xs text-slate-300 font-medium">
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5 flex items-center justify-between">
+              <span>MS SQL Validation</span>
+              <span class="text-cyan-400 font-mono">Proficient</span>
+            </li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5 flex items-center justify-between">
+              <span>REST API Integration</span>
+              <span class="text-cyan-400 font-mono">Testing</span>
+            </li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5 flex items-center justify-between">
+              <span>Advanced MS Excel</span>
+              <span class="text-cyan-400 font-mono">Analytical</span>
+            </li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5 flex items-center justify-between">
+              <span>IDS System Integration</span>
+              <span class="text-cyan-400 font-mono">Enterprise</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl glass-card border border-white/5 space-y-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+            <i data-lucide="sparkles" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white">Leadership & Delivery</h3>
+          <ul class="space-y-2 text-xs text-slate-300 font-medium">
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5">Cross-Functional SPOC</li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5">Multi-Plant Rollout Strategy</li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5">End-User Training & SOPs</li>
+            <li class="p-2.5 rounded-lg bg-surface-base border border-white/5">Digital Transformation Leadership</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Education & Credentials Timeline -->
+  <section class="py-24 bg-surface-card/40 border-t border-surface-border relative" id="education">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <div class="lg:col-span-7 space-y-8">
+          <div>
+            <span class="text-brand-500 font-mono text-xs uppercase tracking-widest font-bold">Academics</span>
+            <h2 class="text-3xl font-display font-bold mt-2">Education & Specialization</h2>
+          </div>
+
+          <div class="space-y-6 relative border-l-2 border-brand-500/30 pl-6 ml-3">
+            
+            <div class="relative group">
+              <div class="w-3.5 h-3.5 rounded-full bg-brand-500 absolute -left-[31px] top-1.5 border-4 border-surface-base group-hover:scale-125 transition-transform"></div>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-brand-500/20 text-brand-300 font-semibold">2026 – 2028</span>
+              <h3 class="text-lg font-bold text-white mt-2">Master of Business Administration (MBA)</h3>
+              <p class="text-sm font-semibold text-slate-300">University of Madras</p>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                Specialization in <strong>Logistics & Supply Chain Management</strong>. Focus on strategic supply chain optimization, multimodal transportation models, procurement contracts, operations management, and data-driven business decisions.
+              </p>
+            </div>
+
+            <div class="relative group">
+              <div class="w-3.5 h-3.5 rounded-full bg-slate-600 absolute -left-[31px] top-1.5 border-4 border-surface-base group-hover:scale-125 transition-transform"></div>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-white/10 text-slate-300 font-semibold">2018 – 2022</span>
+              <h3 class="text-lg font-bold text-white mt-2">B.E. Mechanical Engineering</h3>
+              <p class="text-sm font-semibold text-slate-300">Ramco Institute of Technology</p>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                Rigorous grounding in industrial operations, manufacturing processes, equipment mechanics, and analytical problem-solving directly applied to cement and manufacturing ERP architectures.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-6">
+          <div>
+            <span class="text-brand-500 font-mono text-xs uppercase tracking-widest font-bold">Readiness</span>
+            <h2 class="text-3xl font-display font-bold mt-2">Key Profile Parameters</h2>
+          </div>
+
+          <div class="space-y-4">
+            
+            <div class="p-5 rounded-2xl glass-card border border-brand-500/20 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center shrink-0">
+                <i data-lucide="award" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-sm">Ramco ERP Functional Training</h4>
+                <p class="text-xs text-slate-400">Certified Functional Competency across Manufacturing & SCM</p>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl glass-card border border-white/5 space-y-3">
+              <h4 class="font-bold text-white text-sm flex items-center gap-2">
+                <i data-lucide="briefcase" class="w-4 h-4 text-brand-400"></i> Deployment Availability
+              </h4>
+              <div class="grid grid-cols-2 gap-3 text-xs">
+                <div class="p-3 rounded-xl bg-surface-base border border-white/5">
+                  <span class="text-slate-400 block font-mono">Notice Period</span>
+                  <span class="text-white font-semibold">90 Days (Negotiable)</span>
+                </div>
+                <div class="p-3 rounded-xl bg-surface-base border border-white/5">
+                  <span class="text-slate-400 block font-mono">Location</span>
+                  <span class="text-white font-semibold">Chennai, Tamil Nadu</span>
+                </div>
+                <div class="p-3 rounded-xl bg-surface-base border border-white/5">
+                  <span class="text-slate-400 block font-mono">Languages</span>
+                  <span class="text-white font-semibold">English, Tamil</span>
+                </div>
+                <div class="p-3 rounded-xl bg-surface-base border border-white/5">
+                  <span class="text-slate-400 block font-mono">Relocation / Travel</span>
+                  <span class="text-white font-semibold">Open for Enterprise Travel</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Contact Section -->
+  <section class="py-24 relative overflow-hidden" id="contact">
+    <div class="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] hero-crimson-orb rounded-full opacity-30 pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-brand-500 font-mono text-xs uppercase tracking-widest font-bold">Contact</span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold mt-2">Initiate an Enterprise Collaboration</h2>
+        <p class="text-slate-400 text-sm mt-3 font-mono">Available for Lead Business Analyst and Senior ERP Functional Consultant roles.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        
+        <div class="lg:col-span-5 space-y-6">
+          <div class="p-6 rounded-2xl glass-card border border-white/5 space-y-5">
+            <h3 class="font-display font-bold text-lg text-white">Direct Communication</h3>
+            
+            <a href="mailto:ragulgr02@gmail.com" class="flex items-center gap-4 p-3.5 rounded-xl bg-surface-base/80 hover:bg-surface-elevated border border-white/5 transition-colors group">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono text-slate-400 block">EMAIL RAGUL</span>
+                <span class="text-sm font-semibold text-white group-hover:text-brand-400">ragulgr02@gmail.com</span>
+              </div>
+            </a>
+
+            <a href="tel:+918610797705" class="flex items-center gap-4 p-3.5 rounded-xl bg-surface-base/80 hover:bg-surface-elevated border border-white/5 transition-colors group">
+              <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="phone" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono text-slate-400 block">DIRECT PHONE</span>
+                <span class="text-sm font-semibold text-white group-hover:text-emerald-400">+91 86107 97705</span>
+              </div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/ragul-gr" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-3.5 rounded-xl bg-surface-base/80 hover:bg-surface-elevated border border-white/5 transition-colors group">
+              <div class="w-10 h-10 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="linkedin" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono text-slate-400 block">LINKEDIN PROFILE</span>
+                <span class="text-sm font-semibold text-white group-hover:text-blue-400">linkedin.com/in/ragul-gr</span>
+              </div>
+            </a>
+
+            <div class="flex items-center gap-4 p-3.5 rounded-xl bg-surface-base/80 border border-white/5">
+              <div class="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono text-slate-400 block">RESIDENCE</span>
+                <span class="text-sm font-semibold text-white">Chennai, Tamil Nadu, India</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="triggerResumeModal()" class="w-full py-4 rounded-2xl font-bold text-sm bg-gradient-to-r from-brand-600 via-rose-600 to-red-600 hover:from-brand-500 hover:to-rose-500 text-white shadow-crimson-glow transition-all flex items-center justify-center gap-2.5">
+            <i data-lucide="file-down" class="w-4 h-4"></i>
+            <span>View Full Resume Dossier</span>
+          </button>
+        </div>
+
+        <!-- Form -->
+        <div class="lg:col-span-7">
+          <form id="contactForm" onsubmit="handleFormSubmit(event)" class="p-8 rounded-3xl glass-card border border-white/10 space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-xs font-mono text-slate-300 uppercase tracking-wider mb-2">Your Name</label>
+                <input type="text" id="senderName" required placeholder="e.g. Anand Sharma" class="w-full px-4 py-3 rounded-xl bg-surface-base border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
+              </div>
+              <div>
+                <label class="block text-xs font-mono text-slate-300 uppercase tracking-wider mb-2">Work Email</label>
+                <input type="email" id="senderEmail" required placeholder="anand@enterprise.com" class="w-full px-4 py-3 rounded-xl bg-surface-base border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 uppercase tracking-wider mb-2">Engagement Scope</label>
+              <select id="inquiryType" class="w-full px-4 py-3 rounded-xl bg-surface-base border border-white/10 text-white text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
+                <option value="ERP Implementation / Plant Rollout">ERP Implementation / Multi-Plant Rollout</option>
+                <option value="Lead Business Analyst Opportunity">Lead Business Analyst Job Opportunity</option>
+                <option value="Logistics & Supply Chain Module Design">Logistics & Supply Chain Custom Module</option>
+                <option value="Executive Consulting & Advisory">Executive Consulting & System Audit</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 uppercase tracking-wider mb-2">Project Brief / Message</label>
+              <textarea id="senderMessage" rows="4" required placeholder="Please provide brief details on your ERP scope, plant footprint, or role requirements..." class="w-full px-4 py-3 rounded-xl bg-surface-base border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"></textarea>
+            </div>
+
+            <div id="formStatus" class="hidden p-3.5 rounded-xl text-xs font-mono"></div>
+
+            <button type="submit" id="submitBtn" class="w-full py-3.5 rounded-xl font-bold text-sm bg-brand-600 hover:bg-brand-500 text-white shadow-crimson-glow transition-all flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Send Message to Ragul</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 border-t border-surface-border text-center text-xs text-slate-500 font-mono">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© 2026 Ragul GR. Business Analyst & ERP Functional Consultant.</p>
+      <div class="flex items-center gap-6">
+        <a href="https://www.linkedin.com/in/ragul-gr" target="_blank" class="hover:text-slate-300">LinkedIn</a>
+        <a href="mailto:ragulgr02@gmail.com" class="hover:text-slate-300">ragulgr02@gmail.com</a>
+        <a href="#hero" class="hover:text-brand-400">Return to Top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Resume Modal -->
+  <div id="resumeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-surface-card border border-brand-500/30 w-full max-w-2xl rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeResumeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <div class="border-b border-white/10 pb-4">
+        <span class="text-xs font-mono text-brand-400">EXECUTIVE RESUME DOSSIER</span>
+        <h3 class="text-2xl font-display font-bold text-white mt-1">Ragul GR</h3>
+        <p class="text-xs text-slate-300 font-mono">Business Analyst | ERP Functional Consultant (4+ Years)</p>
+      </div>
+
+      <div class="space-y-4 text-xs text-slate-300">
+        <div>
+          <h4 class="font-bold text-white uppercase text-[11px] text-brand-400">Profile Summary</h4>
+          <p class="mt-1 leading-relaxed">
+            Business Analyst and ERP Functional Consultant with 4+ years of experience delivering enterprise ERP implementations, digital transformation initiatives, and business process optimization. Led 120+ operational plant rollouts for Prism RMC and architected custom Logistics Modules with 450+ delivered enhancements.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-2">
+          <div class="p-3 rounded-xl bg-surface-base border border-white/5">
+            <span class="text-slate-400 block font-mono text-[10px]">PHONE</span>
+            <span class="text-white font-medium">+91 8610797705</span>
+          </div>
+          <div class="p-3 rounded-xl bg-surface-base border border-white/5">
+            <span class="text-slate-400 block font-mono text-[10px]">EMAIL</span>
+            <span class="text-white font-medium">ragulgr02@gmail.com</span>
+          </div>
+          <div class="p-3 rounded-xl bg-surface-base border border-white/5">
+            <span class="text-slate-400 block font-mono text-[10px]">ACADEMICS</span>
+            <span class="text-white font-medium">MBA (SCM) & B.E. Mech</span>
+          </div>
+          <div class="p-3 rounded-xl bg-surface-base border border-white/5">
+            <span class="text-slate-400 block font-mono text-[10px]">NOTICE PERIOD</span>
+            <span class="text-white font-medium">90 Days</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
+        <a href="mailto:ragulgr02@gmail.com?subject=Resume%20Inquiry%20-%20Ragul%20GR" class="flex-1 py-3 text-center rounded-xl font-bold text-xs bg-brand-600 hover:bg-brand-500 text-white shadow-crimson-glow">
+          Email Request for Printable PDF
+        </a>
+        <button onclick="copyContactEmail()" class="px-5 py-3 rounded-xl font-bold text-xs bg-surface-elevated hover:bg-slate-700 text-slate-200 border border-white/10 flex items-center justify-center gap-1.5">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          <span>Copy Contact</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUE DISNEY/PIXAR 3D ANIMATED EYE RIG & PUPPET ENGINE -->
+  <script>
+    lucide.createIcons();
+
+    // Mobile nav toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+    });
+
+    // Toast
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2400);
+    }
+
+    function copyContactEmail() {
+      const email = "ragulgr02@gmail.com";
+      const dummy = document.createElement("textarea");
+      dummy.value = email;
+      document.body.appendChild(dummy);
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+      showToast("Email address copied to clipboard!");
+    }
+
+    // =========================================================================
+    // DISNEY/PIXAR EXPRESSIVE PUPPET ENGINE
+    // Specifically builds:
+    // 1. Organic, warm, large Disney eyes with layered iris rings, ray striations,
+    //    inner glow, reactive pupils, and iconic Disney glossy double catchlights.
+    // 2. Anatomical eyelid tracking that curves over the cornea when looking down/up.
+    // 3. Arched Disney eyebrows that lift and furrow dynamically with mouse movement.
+    // 4. Disney smirk mouth with depth shadows and lip highlights.
+    // 5. Stylized layered hair tufts with momentum physics.
+    // =========================================================================
+
+    const canvas = document.getElementById('characterCanvas');
+    const ctx = canvas.getContext('2d');
+    const portraitCard = document.getElementById('portraitCard');
+    const glareOverlay = document.getElementById('glareOverlay');
+    const hudAngle = document.getElementById('hud-angle');
+    const modeText = document.getElementById('tracker-mode-text');
+    const trackingStage = document.getElementById('tracking-stage');
+    const bubble = document.getElementById('characterBubble');
+    const bubbleEmoji = document.getElementById('bubbleEmoji');
+    const bubbleText = document.getElementById('bubbleText');
+
+    // Rig State
+    let currentMode = 'cursor'; // 'cursor', 'patrol', 'preset'
+    let targetGazeX = 0; // -1 to 1
+    let targetGazeY = 0; // -1 to 1
+    let curGazeX = 0;
+    let curGazeY = 0;
+    
+    // Physics secondary motion
+    let hairSway = 0;
+    let hairVel = 0;
+    let headRoll = 0;
+    let headRollVel = 0;
+    let nodOffset = 0;
+    let nodVel = 0;
+
+    // Facial expression controls
+    let blinkValue = 0;
+    let blinkTimer = 0;
+    let winkL = 0;
+    let winkR = 0;
+    let browLiftL = 0;
+    let browLiftR = 0;
+    let targetBrowL = 0;
+    let targetBrowR = 0;
+    let smileFactor = 0.45;
+    let targetSmile = 0.45;
+    let mouthSurprise = 0;
+    let targetSurprise = 0;
+
+    // Mouse & Touch Tracking
+    function handlePointer(x, y) {
+      if (currentMode !== 'cursor') return;
+
+      const rect = trackingStage.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height * 0.4; // eye level anchor
+
+      const rangeX = window.innerWidth * 0.55;
+      const rangeY = window.innerHeight * 0.55;
+
+      const nx = (x - centerX) / rangeX;
+      const ny = (y - centerY) / rangeY;
+
+      targetGazeX = Math.max(-1, Math.min(1, nx));
+      targetGazeY = Math.max(-1, Math.min(1, ny));
+    }
+
+    window.addEventListener('mousemove', (e) => handlePointer(e.clientX, e.clientY));
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) handlePointer(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+
+    // Mode Controller
+    function setCharacterMode(mode) {
+      currentMode = mode;
+      document.getElementById('btn-mode-cursor').className = mode === 'cursor' ? 'flex-1 py-2 px-2.5 rounded-xl bg-brand-600 text-white font-semibold transition-all flex items-center justify-center gap-1.5 text-[11px]' : 'flex-1 py-2 px-2.5 rounded-xl bg-surface-base hover:bg-white/5 text-slate-300 transition-all flex items-center justify-center gap-1.5 text-[11px]';
+      document.getElementById('btn-mode-patrol').className = mode === 'patrol' ? 'flex-1 py-2 px-2.5 rounded-xl bg-brand-600 text-white font-semibold transition-all flex items-center justify-center gap-1.5 text-[11px]' : 'flex-1 py-2 px-2.5 rounded-xl bg-surface-base hover:bg-white/5 text-slate-300 transition-all flex items-center justify-center gap-1.5 text-[11px]';
+
+      if (mode === 'cursor') {
+        modeText.textContent = "Disney Eye Rig: TRACKING CURSOR";
+        showToast("Disney eye rig tracking your pointer!");
+      } else if (mode === 'patrol') {
+        modeText.textContent = "Disney Eye Rig: AUTONOMOUS PATROL";
+        showToast("Character observing smoothly around the environment.");
+      }
+    }
+
+    function triggerDisneyBlink() {
+      blinkValue = 1.0;
+      blinkTimer = 0;
+    }
+
+    // Expression Presets
+    function triggerExpression(type) {
+      if (type === 'smile') {
+        targetSmile = 1.25;
+        targetBrowL = 0.3;
+        targetBrowR = 0.5;
+        targetSurprise = 0;
+        showBubble("😏", "\"120+ plants stabilized with custom ERP workflows!\"");
+      } else if (type === 'wonder') {
+        currentMode = 'preset';
+        targetGazeX = 0.15;
+        targetGazeY = -0.95;
+        targetBrowL = 1.0;
+        targetBrowR = 1.0;
+        targetSmile = 0.6;
+        targetSurprise = 0;
+        showBubble("✨", "\"Architecting scalable Logistics & Supply Chain modules.\"");
+        setTimeout(() => { currentMode = 'cursor'; }, 2800);
+      } else if (type === 'wink') {
+        winkR = 1.0;
+        targetSmile = 1.1;
+        targetBrowL = 0.6;
+        targetSurprise = 0;
+        showBubble("😉", "\"BRD/FRD blueprinting with zero guesswork!\"");
+      } else if (type === 'inspired') {
+        nodVel = 12;
+        targetSmile = 0.9;
+        targetBrowL = 1.1;
+        targetBrowR = 1.1;
+        targetSurprise = 0.2;
+        showBubble("💡", "\"450+ business enhancements shipped smoothly!\"");
+      } else if (type === 'surprised') {
+        targetSurprise = 1.0;
+        targetBrowL = 1.3;
+        targetBrowR = 1.3;
+        targetSmile = 0.2;
+        showBubble("😲", "\"Over 120 cement plants connected nationwide!\"");
+      }
+    }
+
+    function showBubble(emoji, text) {
+      bubbleEmoji.textContent = emoji;
+      bubbleText.textContent = text;
+      bubble.classList.remove('opacity-0', '-translate-y-3');
+      bubble.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        bubble.classList.remove('opacity-100', 'translate-y-0');
+        bubble.classList.add('opacity-0', '-translate-y-3');
+      }, 2600);
+    }
+
+    // Avatar Interactive Click
+    canvas.addEventListener('click', () => {
+      nodVel = 14;
+      targetSmile = 1.1;
+      targetBrowL = 0.7;
+      targetBrowR = 0.8;
+      const quotes = [
+        ["🚀", "\"450+ enhancements delivered on Ramco ERP!\""],
+        ["🏭", "\"Logistics module live across 120+ plants!\""],
+        ["📊", "\"Validating complex pricing matrices with MS SQL.\""],
+        ["🤝", "\"Let's collaborate on your next digital transformation!\""]
+      ];
+      const pick = quotes[Math.floor(Math.random() * quotes.length)];
+      showBubble(pick[0], pick[1]);
+    });
+
+    // =========================================================================
+    // DISNEY EYE & CHARACTER DRAWING FUNCTION
+    // =========================================================================
+
+    function drawDisneyEye(ctx, x, y, gazeX, gazeY, isWinking, browLift, side) {
+      ctx.save();
+      ctx.translate(x, y);
+
+      // Eye dimensions - iconic Disney generous proportions
+      const ew = 34; // half-width
+      const eh = 24; // half-height
+
+      // Eyebrow Geometry (Disney expressive arch)
+      ctx.save();
+      const browBaseY = -eh - 14 - browLift * 8 - (gazeY < 0 ? -gazeY * 6 : 0);
+      const browTilt = side * 3 + (gazeX * side * 2);
+
+      // Brow shadow
+      ctx.strokeStyle = 'rgba(40, 15, 8, 0.25)';
+      ctx.lineWidth = 5.5;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(-side * 22, browBaseY + browTilt + 1.5);
+      ctx.quadraticCurveTo(0, browBaseY - 10 + browTilt + 1.5, side * 22, browBaseY - 2 + browTilt + 1.5);
+      ctx.stroke();
+
+      // Main Disney Brow (Rich dark espresso with feathered tapered end)
+      ctx.strokeStyle = '#1d120c';
+      ctx.lineWidth = 4.8;
+      ctx.beginPath();
+      ctx.moveTo(-side * 22, browBaseY + browTilt);
+      ctx.quadraticCurveTo(0, browBaseY - 10 + browTilt, side * 22, browBaseY - 2 + browTilt);
+      ctx.stroke();
+
+      // Brow hair strand highlights
+      ctx.strokeStyle = 'rgba(110, 65, 45, 0.6)';
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.moveTo(-side * 14, browBaseY - 3 + browTilt);
+      ctx.quadraticCurveTo(0, browBaseY - 9 + browTilt, side * 14, browBaseY - 4 + browTilt);
+      ctx.stroke();
+      ctx.restore();
+
+      // Handle Wink or Blink
+      const isClosed = isWinking > 0.4 || blinkValue > 0.7;
+
+      if (isClosed) {
+        // Expressive curved lash line for Disney wink/blink
+        ctx.strokeStyle = '#2b140b';
+        ctx.lineWidth = 4;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(-ew * 0.85, 2);
+        ctx.quadraticCurveTo(0, 10, ew * 0.85, 2);
+        ctx.stroke();
+
+        // Delicate crease line
+        ctx.strokeStyle = 'rgba(180, 80, 50, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(-ew * 0.6, -4);
+        ctx.quadraticCurveTo(0, -9, ew * 0.6, -4);
+        ctx.stroke();
+
+        ctx.restore();
+        return;
+      }
+
+      // Upper Eyelid Crease (Disney double-lid depth)
+      ctx.strokeStyle = 'rgba(120, 55, 30, 0.4)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(-ew * 0.85, -eh * 0.95);
+      ctx.quadraticCurveTo(0, -eh * 1.55, ew * 0.85, -eh * 0.95);
+      ctx.stroke();
+
+      // Disney Eye Sclera Path (Classic almond Disney eye silhouette)
+      ctx.beginPath();
+      ctx.moveTo(-ew, 0);
+      ctx.bezierCurveTo(-ew * 0.75, -eh * 1.25, ew * 0.75, -eh * 1.25, ew, 0);
+      ctx.bezierCurveTo(ew * 0.75, eh * 1.15, -ew * 0.75, eh * 1.15, -ew, 0);
+      ctx.closePath();
+
+      // Eyeball base fill with subtle ambient occlusion shadow at the top
+      const scleraGrad = ctx.createLinearGradient(0, -eh, 0, eh);
+      scleraGrad.addColorStop(0, '#e2e8f0'); // top shadow from eyelid
+      scleraGrad.addColorStop(0.25, '#f8fafc');
+      scleraGrad.addColorStop(0.85, '#ffffff');
+      scleraGrad.addColorStop(1, '#f1f5f9');
+      ctx.fillStyle = scleraGrad;
+      ctx.fill();
+
+      // Clip iris inside the Disney almond sclera
+      ctx.save();
+      ctx.clip();
+
+      // Eye pupil/iris shift (Disney eyes have generous saccadic range)
+      const maxShiftX = ew * 0.52;
+      const maxShiftY = eh * 0.52;
+      const ix = gazeX * maxShiftX;
+      const iy = gazeY * maxShiftY;
+      const irisRadius = 17.5;
+
+      // 1. Outer Iris Dark Ring (Limbus Ring - hallmark of youthful Pixar characters)
+      ctx.beginPath();
+      ctx.arc(ix, iy, irisRadius, 0, Math.PI * 2);
+      ctx.fillStyle = '#1e0c04';
+      ctx.fill();
+
+      // 2. Iris Color Gradient (Warm Honey Amber to Deep Chestnut)
+      const irisGrad = ctx.createRadialGradient(ix, iy, 2, ix, iy, irisRadius);
+      irisGrad.addColorStop(0, '#d97706');    // bright inner amber radiance
+      irisGrad.addColorStop(0.35, '#b45309'); // rich hazel bronze
+      irisGrad.addColorStop(0.7, '#78350f');  // deep chestnut
+      irisGrad.addColorStop(1, '#270e04');    // dark limbal perimeter
+      ctx.fillStyle = irisGrad;
+      ctx.beginPath();
+      ctx.arc(ix, iy, irisRadius - 1.2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 3. Iris Ray Striations (Detailed Disney fiber texture)
+      ctx.save();
+      ctx.translate(ix, iy);
+      ctx.strokeStyle = 'rgba(251, 191, 36, 0.35)'; // golden ray highlights
+      ctx.lineWidth = 1.2;
+      for (let a = 0; a < Math.PI * 2; a += Math.PI / 8) {
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * 5, Math.sin(a) * 5);
+        ctx.lineTo(Math.cos(a) * (irisRadius - 2.5), Math.sin(a) * (irisRadius - 2.5));
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // 4. Reactive Deep Pupil
+      const pupilRadius = 7.2 - Math.abs(gazeY) * 0.8;
+      ctx.beginPath();
+      ctx.arc(ix, iy, Math.max(5.5, pupilRadius), 0, Math.PI * 2);
+      ctx.fillStyle = '#060302';
+      ctx.fill();
+
+      // 5. SIGNATURE DISNEY DOUBLE GLOSS CATCHLIGHTS
+      // Primary Key Light (Top-left crisp glossy circle reflection)
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(ix - 5.5, iy - 5.5, 4.4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Secondary Rim Bounce Light (Bottom-right soft crescent reflection)
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
+      ctx.beginPath();
+      ctx.arc(ix + 4.5, iy + 4.5, 2.4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Micro Specular Star Highlight
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.beginPath();
+      ctx.arc(ix - 8, iy - 2, 1.3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 6. Natural Dynamic Eyelid Occlusion (Upper lid lowers when looking down)
+      const topLidDrop = Math.max(0, gazeY * 11);
+      if (topLidDrop > 0.5) {
+        ctx.fillStyle = '#e2946c';
+        ctx.beginPath();
+        ctx.moveTo(-ew - 5, -eh - 5);
+        ctx.lineTo(ew + 5, -eh - 5);
+        ctx.lineTo(ew + 5, -eh + topLidDrop);
+        ctx.quadraticCurveTo(0, -eh + topLidDrop + 5, -ew - 5, -eh + topLidDrop);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = '#5a2514';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+
+      ctx.restore(); // remove eye clip
+
+      // Disney Stylized Upper Eyelash Rim (Thick, elegant brown outline)
+      ctx.strokeStyle = '#23120b';
+      ctx.lineWidth = 3.2;
+      ctx.beginPath();
+      ctx.moveTo(-ew * 1.05, 0);
+      ctx.bezierCurveTo(-ew * 0.75, -eh * 1.3, ew * 0.75, -eh * 1.3, ew * 1.05, 0);
+      ctx.stroke();
+
+      // Delicate lower lash line
+      ctx.strokeStyle = 'rgba(55, 25, 15, 0.45)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(-ew * 0.8, 1);
+      ctx.bezierCurveTo(-ew * 0.5, eh * 1.12, ew * 0.5, eh * 1.12, ew * 0.8, 1);
+      ctx.stroke();
+
+      // Inner eye tear duct pink touch
+      ctx.fillStyle = '#f87171';
+      ctx.beginPath();
+      ctx.arc(-side * (ew - 2), 0.5, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    // =========================================================================
+    // MAIN DISNEY CHARACTER ANIMATION LOOP
+    // =========================================================================
+
+    let animClock = 0;
+
+    function renderDisneyScene() {
+      animClock += 0.038;
+
+      // Handle Patrol
+      if (currentMode === 'patrol') {
+        targetGazeX = Math.sin(animClock * 0.8) * 0.75;
+        targetGazeY = Math.cos(animClock * 0.5) * 0.48 - 0.15;
+      }
+
+      // Smooth Lerp
+      const lerpSpd = 0.095;
+      curGazeX += (targetGazeX - curGazeX) * lerpSpd;
+      curGazeY += (targetGazeY - curGazeY) * lerpSpd;
+
+      // Secondary Head roll & momentum
+      const targetRoll = curGazeX * 0.09;
+      headRollVel += (targetRoll - headRoll) * 0.12;
+      headRollVel *= 0.78;
+      headRoll += headRollVel;
+
+      // Hair physics sway
+      const targetHair = -curGazeX * 14;
+      hairVel += (targetHair - hairSway) * 0.14;
+      hairVel *= 0.8;
+      hairSway += hairVel;
+
+      // Nod oscillation
+      if (nodVel !== 0 || nodOffset !== 0) {
+        nodOffset += nodVel;
+        nodVel -= nodOffset * 0.32;
+        nodVel *= 0.82;
+        if (Math.abs(nodOffset) < 0.15 && Math.abs(nodVel) < 0.15) {
+          nodOffset = 0;
+          nodVel = 0;
+        }
+      }
+
+      // Smooth facial expression decays
+      smileFactor += (targetSmile - smileFactor) * 0.08;
+      targetSmile += (0.45 - targetSmile) * 0.03;
+
+      mouthSurprise += (targetSurprise - mouthSurprise) * 0.1;
+      targetSurprise += (0 - targetSurprise) * 0.04;
+
+      browLiftL += (targetBrowL - browLiftL) * 0.12;
+      browLiftR += (targetBrowR - browLiftR) * 0.12;
+      targetBrowL += (0 - targetBrowL) * 0.05;
+      targetBrowR += (0 - targetBrowR) * 0.05;
+
+      winkL *= 0.86;
+      winkR *= 0.86;
+
+      // Organic Disney Blink timing
+      blinkTimer++;
+      if (blinkTimer > 180 && Math.random() < 0.05) {
+        blinkValue = 1.0;
+        blinkTimer = 0;
+      } else {
+        blinkValue *= 0.62;
+      }
+
+      // 3D Perspective Card Tilt
+      const rotY = curGazeX * 12;
+      const rotX = -curGazeY * 10;
+      portraitCard.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+
+      // Ambient Lighting Glare
+      const glareX = 50 + curGazeX * 35;
+      const glareY = 50 + curGazeY * 35;
+      glareOverlay.style.opacity = Math.min(0.5, Math.abs(curGazeX) * 0.3 + Math.abs(curGazeY) * 0.3 + 0.15);
+      glareOverlay.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 65%)`;
+
+      // Update HUD telemetry
+      hudAngle.textContent = `Yaw: ${(curGazeX * 22).toFixed(1)}° | Gaze: ${(curGazeY * 18).toFixed(1)}°`;
+
+      // Clear Canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2 + 10;
+
+      // -------------------------------------------------------------
+      // 1. DISNEY SKY BLUE DRESS SHIRT & TORSO
+      // -------------------------------------------------------------
+      const torsoX = -curGazeX * 10;
+      ctx.save();
+      ctx.translate(cx + torsoX, cy + 135);
+
+      // Shirt body gradient
+      const shirtGrad = ctx.createLinearGradient(-160, 0, 160, 200);
+      shirtGrad.addColorStop(0, '#9cc9ff');
+      shirtGrad.addColorStop(0.4, '#70afff');
+      shirtGrad.addColorStop(0.75, '#4a90f2');
+      shirtGrad.addColorStop(1, '#276ac9');
+
+      ctx.fillStyle = shirtGrad;
+      ctx.beginPath();
+      ctx.moveTo(-205, 190);
+      ctx.bezierCurveTo(-165, 12, -65, -34, 0, -34);
+      ctx.bezierCurveTo(65, -34, 165, 12, 205, 190);
+      ctx.closePath();
+      ctx.fill();
+
+      // Realistic 3D cloth shadow contours
+      ctx.strokeStyle = 'rgba(28, 70, 185, 0.28)';
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      ctx.moveTo(-130, 110);
+      ctx.quadraticCurveTo(-90, 45, -45, 12);
+      ctx.moveTo(130, 110);
+      ctx.quadraticCurveTo(90, 45, 45, 12);
+      ctx.stroke();
+
+      // Disney Sharp Shirt Collars
+      ctx.fillStyle = '#bce0ff';
+      ctx.beginPath();
+      ctx.moveTo(0, 34);
+      ctx.lineTo(-64, -34);
+      ctx.lineTo(-16, -45);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = '#5a9bf5';
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+
+      ctx.fillStyle = '#d4ebff';
+      ctx.beginPath();
+      ctx.moveTo(0, 34);
+      ctx.lineTo(64, -34);
+      ctx.lineTo(16, -45);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = '#5a9bf5';
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+
+      // Placket & Mother-of-pearl buttons
+      ctx.strokeStyle = 'rgba(30, 90, 220, 0.4)';
+      ctx.lineWidth = 2.8;
+      ctx.beginPath();
+      ctx.moveTo(0, 34);
+      ctx.lineTo(0, 190);
+      ctx.stroke();
+
+      [72, 118, 164].forEach(by => {
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(0, by, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#93c5fd';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      });
+
+      // Tailored Chest Pocket
+      ctx.strokeStyle = 'rgba(30, 90, 220, 0.35)';
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([4, 4]);
+      ctx.strokeRect(68, 55, 55, 62);
+      ctx.setLineDash([]);
+
+      ctx.restore();
+
+      // -------------------------------------------------------------
+      // 2. NECK & JAW AMBIENT SHADOW
+      // -------------------------------------------------------------
+      const neckX = curGazeX * 7;
+      ctx.save();
+      ctx.translate(cx + neckX, cy + 38);
+
+      const neckGrad = ctx.createLinearGradient(0, -20, 0, 80);
+      neckGrad.addColorStop(0, '#b86a43');
+      neckGrad.addColorStop(0.5, '#ce7d52');
+      neckGrad.addColorStop(1, '#e29469');
+
+      ctx.fillStyle = neckGrad;
+      ctx.beginPath();
+      ctx.moveTo(-38, -20);
+      ctx.lineTo(38, -20);
+      ctx.lineTo(46, 78);
+      ctx.bezierCurveTo(24, 92, -24, 92, -46, 78);
+      ctx.closePath();
+      ctx.fill();
+
+      // Deep jaw shadow
+      ctx.fillStyle = 'rgba(75, 25, 12, 0.4)';
+      ctx.beginPath();
+      ctx.moveTo(-38, -20);
+      ctx.bezierCurveTo(-18, 20, 18, 20, 38, -20);
+      ctx.lineTo(44, 24);
+      ctx.bezierCurveTo(18, 52, -18, 52, -44, 24);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.restore();
+
+      // -------------------------------------------------------------
+      // 3. DISNEY HEAD, CHIN & EARS
+      // -------------------------------------------------------------
+      const headX = curGazeX * 26;
+      const headY = curGazeY * 20 + nodOffset;
+
+      ctx.save();
+      ctx.translate(cx + headX, cy - 28 + headY);
+      ctx.rotate(headRoll);
+
+      // Disney Ears (Parallax shifted opposite to head turn)
+      [-1, 1].forEach(side => {
+        const earX = side * (90 - curGazeX * 6);
+        ctx.fillStyle = '#e4996f';
+        ctx.beginPath();
+        ctx.ellipse(earX, 4, 18, 27, side * 0.1, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#b6633e';
+        ctx.beginPath();
+        ctx.ellipse(earX, 4, 11, 17, side * 0.1, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Disney Face Silhouette (Warm, curved, appealing jawline matching artwork)
+      const faceGrad = ctx.createRadialGradient(-15, -25, 15, 0, 10, 115);
+      faceGrad.addColorStop(0, '#fac3a2');
+      faceGrad.addColorStop(0.65, '#e89c72');
+      faceGrad.addColorStop(1, '#c5734a');
+
+      ctx.fillStyle = faceGrad;
+      ctx.beginPath();
+      ctx.moveTo(-80, -35);
+      ctx.bezierCurveTo(-84, 46, -60, 100, 0, 106);
+      ctx.bezierCurveTo(60, 100, 84, 46, 80, -35);
+      ctx.bezierCurveTo(76, -108, -76, -108, -80, -35);
+      ctx.closePath();
+      ctx.fill();
+
+      // Soft Disney Rosy Cheek Glow
+      ctx.fillStyle = 'rgba(244, 63, 94, 0.13)';
+      ctx.beginPath();
+      ctx.ellipse(-44, 22, 24, 15, -0.1, 0, Math.PI * 2);
+      ctx.ellipse(44, 22, 24, 15, 0.1, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Trimmed Disney Beard & Chin Stubble
+      ctx.fillStyle = 'rgba(35, 18, 12, 0.42)';
+      ctx.beginPath();
+      ctx.moveTo(-70, 28);
+      ctx.bezierCurveTo(-72, 80, -50, 103, 0, 104);
+      ctx.bezierCurveTo(50, 103, 72, 80, 70, 28);
+      ctx.bezierCurveTo(60, 72, 34, 92, 0, 92);
+      ctx.bezierCurveTo(-34, 92, -60, 72, -70, 28);
+      ctx.closePath();
+      ctx.fill();
+
+      // Stubble tick marks
+      ctx.strokeStyle = '#20100a';
+      ctx.lineWidth = 1.3;
+      for (let i = -32; i <= 32; i += 7) {
+        ctx.beginPath();
+        ctx.moveTo(i, 93 + Math.sin(i) * 2);
+        ctx.lineTo(i + 1, 97);
+        ctx.stroke();
+      }
+
+      // Petite Soul Patch
+      ctx.fillStyle = '#20100a';
+      ctx.beginPath();
+      ctx.ellipse(0, 66, 8, 5.5, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // -------------------------------------------------------------
+      // 4. BIG EXPRESSIVE DISNEY EYES (Rendered via Disney Eye Engine)
+      // -------------------------------------------------------------
+      const eyeSpan = 42;
+      const eyeElevation = -6;
+
+      // Left Eye
+      drawDisneyEye(ctx, -eyeSpan, eyeElevation, curGazeX, curGazeY, winkL, browLiftL, -1);
+
+      // Right Eye
+      drawDisneyEye(ctx, eyeSpan, eyeElevation, curGazeX, curGazeY, winkR, browLiftR, 1);
+
+      // -------------------------------------------------------------
+      // 5. DISNEY NOSE (Soft 3D Bridge with warm lighting)
+      // -------------------------------------------------------------
+      ctx.save();
+      ctx.translate(curGazeX * 5, 0);
+
+      // Nose bridge soft specular line
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.28)';
+      ctx.beginPath();
+      ctx.ellipse(0, 10, 3.2, 15, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Nose tip & nostrils
+      ctx.strokeStyle = 'rgba(165, 75, 42, 0.8)';
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.moveTo(-6, 2);
+      ctx.lineTo(-6, 26);
+      ctx.quadraticCurveTo(0, 35, 11, 28);
+      ctx.stroke();
+
+      ctx.fillStyle = 'rgba(105, 42, 20, 0.72)';
+      ctx.beginPath();
+      ctx.ellipse(-8, 29, 3.8, 2.8, -0.2, 0, Math.PI * 2);
+      ctx.ellipse(10, 29, 3.8, 2.8, 0.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      // -------------------------------------------------------------
+      // 6. DISNEY MUSTACHE & SMIRK MOUTH
+      // -------------------------------------------------------------
+      ctx.save();
+      ctx.translate(curGazeX * 4, 0);
+
+      // Trimmed Disney Mustache
+      ctx.fillStyle = '#1b100a';
+      ctx.beginPath();
+      ctx.moveTo(-29, 44);
+      ctx.bezierCurveTo(-13, 38, -2, 43, 0, 43);
+      ctx.bezierCurveTo(2, 43, 13, 38, 29, 44);
+      ctx.bezierCurveTo(19, 56, 7, 51, 0, 50);
+      ctx.bezierCurveTo(-7, 51, -19, 56, -29, 44);
+      ctx.closePath();
+      ctx.fill();
+
+      // Dynamic Smirk / Surprise Mouth
+      if (mouthSurprise > 0.3) {
+        // Playful open 'O' surprise
+        ctx.fillStyle = '#450a0a';
+        ctx.beginPath();
+        ctx.ellipse(0, 64, 10 * mouthSurprise, 13 * mouthSurprise, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#7c2d12';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        // White teeth flash inside
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(0, 56, 7 * mouthSurprise, 0, Math.PI);
+        ctx.fill();
+      } else {
+        // Iconic Disney asymmetrical smirk
+        const mouthCurve = smileFactor * 10;
+        ctx.strokeStyle = '#7c2d12';
+        ctx.lineWidth = 3.4;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(-23, 58);
+        ctx.quadraticCurveTo(curGazeX * 4, 58 + mouthCurve, 24, 58 - curGazeX * 3);
+        ctx.stroke();
+
+        // Lower lip highlight
+        ctx.fillStyle = 'rgba(195, 95, 68, 0.8)';
+        ctx.beginPath();
+        ctx.ellipse(0, 62 + mouthCurve * 0.35, 12, 4.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+
+      // -------------------------------------------------------------
+      // 7. SWOOPING DISNEY/PIXAR HAIR LOCKS (Swaying with secondary physics)
+      // -------------------------------------------------------------
+      ctx.save();
+      ctx.translate(hairSway, 0);
+
+      // Deep Silhouette
+      const hairGrad = ctx.createLinearGradient(-85, -135, 85, 0);
+      hairGrad.addColorStop(0, '#100c08');
+      hairGrad.addColorStop(0.5, '#221610');
+      hairGrad.addColorStop(1, '#0c0806');
+
+      ctx.fillStyle = hairGrad;
+      ctx.beginPath();
+      ctx.moveTo(-80, -35);
+      ctx.bezierCurveTo(-88, -95, -50, -135, 0, -137);
+      ctx.bezierCurveTo(58, -137, 95, -95, 80, -35);
+      ctx.bezierCurveTo(76, -58, 66, -84, 44, -96);
+      ctx.bezierCurveTo(14, -108, -40, -102, -66, -78);
+      ctx.bezierCurveTo(-76, -60, -78, -46, -80, -35);
+      ctx.closePath();
+      ctx.fill();
+
+      // Top swooping voluminous lock
+      ctx.fillStyle = '#37241a';
+      ctx.beginPath();
+      ctx.moveTo(-68, -85);
+      ctx.bezierCurveTo(-34, -130, 26, -132, 65, -100);
+      ctx.bezierCurveTo(40, -118, -8, -120, -46, -98);
+      ctx.closePath();
+      ctx.fill();
+
+      // Soft golden-brown glossy specular rim along top tuft
+      ctx.strokeStyle = 'rgba(215, 155, 115, 0.35)';
+      ctx.lineWidth = 2.6;
+      ctx.beginPath();
+      ctx.moveTo(-46, -98);
+      ctx.quadraticCurveTo(0, -125, 48, -92);
+      ctx.stroke();
+
+      ctx.restore(); // end hair sway
+
+      ctx.restore(); // end head transform
+
+      requestAnimationFrame(renderDisneyScene);
+    }
+
+    // Launch scene on load
+    window.onload = function() {
+      renderDisneyScene();
+    };
+
+    // Modal controls
+    function triggerResumeModal() {
+      const modal = document.getElementById('resumeModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeResumeModal() {
+      const modal = document.getElementById('resumeModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Contact form
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const status = document.getElementById('formStatus');
+      const submitBtn = document.getElementById('submitBtn');
+      const name = document.getElementById('senderName').value;
+      const email = document.getElementById('senderEmail').value;
+      const inquiry = document.getElementById('inquiryType').value;
+      const msg = document.getElementById('senderMessage').value;
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span>Transmitting to Ragul...</span>`;
+
+      setTimeout(() => {
+        status.classList.remove('hidden');
+        status.classList.add('bg-emerald-500/20', 'border', 'border-emerald-500/40', 'text-emerald-300');
+        status.innerHTML = `✓ Thank you <strong>${name}</strong>! Your inquiry regarding "${inquiry}" has been dispatched. Ragul will connect with ${email} shortly.`;
+        
+        window.location.href = `mailto:ragulgr02@gmail.com?subject=${encodeURIComponent(inquiry + " from " + name)}&body=${encodeURIComponent("Sender: " + name + " (" + email + ")\n\n" + msg)}`;
+
+        submitBtn.innerHTML = `<span>Inquiry Sent Successfully</span>`;
+        document.getElementById('contactForm').reset();
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
